@@ -1,24 +1,71 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
+
+import { useContext, useEffect } from 'react';
+import GameContext from './store/game-context';
+
+import Home from './home/Home';
+import Shop from './shop/Shop';
+
+import Navbar from './navbar/Navbar';
+import styles from './App.module.css';
+import Achievements from './achievements/Achievements';
+
+
 
 function App() {
+  const ctx = useContext(GameContext)
+
+  useEffect(() => {
+    const tick = setInterval(() => {
+      console.log('tick', ctx.getInventory);
+      
+
+
+
+
+    }, 1000)
+
+    return ( () => {
+      clearInterval(tick)
+    })
+  }, [ctx.getInventory])
+
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className={styles.App}>
+        <Navbar />
+        <Switch>
+          <Route exact path='/'>
+            <Redirect to='/home' />
+          </Route>
+
+          <Route path='/home'>
+            <Home level={ctx.getCurrentLevel}
+              beats={ctx.getCurrentBeats}
+              bpmPower={ctx.getBpmPower} />
+          </Route>
+
+          <Route path='/shop'>
+            <Shop
+              data={ctx.getShopItemsData}
+              beats={ctx.getCurrentBeats}
+              inventory={ctx.getInventory} />
+          </Route>
+
+          <Route path='/achievements'>
+            <Achievements />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

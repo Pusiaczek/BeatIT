@@ -1,0 +1,16 @@
+.beatItButton {
+    width: 20rem;
+    height: 20rem;
+    margin: 3rem;
+    background-color: transparent;
+    border: none;
+    background-image: url(../gfx/drums1.png);
+    background-position: center;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+
+.beatItButton:hover {
+    cursor: pointer;
+    background-size: 90%;
+}
