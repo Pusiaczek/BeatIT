@@ -9,7 +9,7 @@ function ShopItem(props) {
     const onClickHandler = () => {
         // console.log("ShopItem.js - onClickHandler");
         if (!unaffordable) {
-            context.onBuyItem(props.data.id)
+            context.onItemBuy(props.data.id, props.data.cost)
         }
     }
 

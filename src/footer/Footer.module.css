@@ -1,0 +1,40 @@
+.footer {
+    height: 50px;
+    /* background-color: black; */
+    
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+}
+
+.footer::before {
+    content: "";
+    background-image: url('../gfx/skull.png');
+    background-size:contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0.2;
+}
+
+.deleteProgress {
+    font-family: inherit;
+    font-size: 1.8rem;
+    letter-spacing: 15px;
+    opacity: 0.5;
+
+    line-height: 50px;
+    position: relative;
+    border: none;
+    background: none;
+}
+
+.deleteProgress:hover {
+    opacity: 1;
+    color: yellow;
+    text-shadow: 2px 2px 0px black;
+}

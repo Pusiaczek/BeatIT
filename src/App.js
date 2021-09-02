@@ -14,34 +14,22 @@ import Shop from './shop/Shop';
 import Navbar from './navbar/Navbar';
 import styles from './App.module.css';
 import Achievements from './achievements/Achievements';
+import Footer from './footer/Footer';
 
 
 
 function App() {
   const ctx = useContext(GameContext)
 
-  useEffect(() => {
-    const tick = setInterval(() => {
-      console.log('tick', ctx.getInventory);
-      
-
-
-
-
-    }, 1000)
-
-    return ( () => {
-      clearInterval(tick)
-    })
-  }, [ctx.getInventory])
 
 
 
 
   return (
-    <Router>
-      <div className={styles.App}>
+    <div className={styles.App}>
+      <Router>
         <Navbar />
+
         <Switch>
           <Route exact path='/'>
             <Redirect to='/home' />
@@ -64,8 +52,9 @@ function App() {
             <Achievements />
           </Route>
         </Switch>
-      </div>
-    </Router>
+        <Footer />
+      </Router>
+    </div>
   );
 }
 

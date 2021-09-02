@@ -9,14 +9,14 @@ const shopItems = [
     {
         id: 1,
         name: "Tribal Band!",
-        bpmPower: 10,
-        cost: 100,
+        bpmPower: 5,
+        cost: 50,
         imgUrl: '../gfx/shop/item02.png',
     },
     {
         id: 2,
         name: "Shaman-Musician",
-        bpmPower: 100,
+        bpmPower: 64,
         cost: 420,
         imgUrl: '../gfx/shop/item03.png',
     },
@@ -24,7 +24,7 @@ const shopItems = [
     {
         id: 3,
         name: "Dr. Peacock",
-        bpmPower: 1000,
+        bpmPower: 1337,
         cost: 66066,
         imgUrl: '../gfx/shop/item04.png',
     },

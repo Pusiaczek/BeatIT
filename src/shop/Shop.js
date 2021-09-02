@@ -13,7 +13,7 @@ function Shop(props) {
 
     return (
         <div>
-            <p>Ya beats mon! {props.beats}</p>
+            <p>Ya beats mon! {Math.round(props.beats)}</p>
             <div className={styles.inventoryList}>
                 {inventoryContent}
             </div>

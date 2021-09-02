@@ -5,7 +5,8 @@ import shopItems from "../pseudoBackend/shopItems";
 
 const GameContext = React.createContext({
     onBeatClick: () => { },
-    onBuyItem: () => { },
+    onItemBuy: () => { },
+    onDeleteProgress: () => { },
 
     getCurrentBeats: 0,
     getCurrentLevel: 0,
@@ -17,11 +18,14 @@ const GameContext = React.createContext({
 
 
 export function GameContextProvider(props) {
+    const GAME_TICK = 2500;
+
+
     const [gameState, dispatch] = useReducer(gameReducer, {
         currentBeats: 0,
-        clickPower: 1,
+        clickPower: 10,
+        bpmPower: 0,
         inventory: new Array(shopItems.length).fill({
-            bpmPower: 0,
             quantity: 0
         }),
     })
@@ -29,75 +33,91 @@ export function GameContextProvider(props) {
 
     const [currentLevel, setCurrentLevel] = useState(1)
     const [nextLevel, setNextLevel] = useState(10)
-    const [bpmPower, setBpmPower] = useState(0)
 
 
-    const onBeatClickHandler = () => dispatch({ type: 'MOUSE_CLICK' })
+    const onBeatClickHandler = () => dispatch({ type: 'BEATS_UPDATE', value: gameState.clickPower })
 
-    const buyItemHandler = (itemId, itemPower) => {
+    const buyItemHandler = (itemId, itemCost) => {
         console.log('Kupujemy', shopItems[itemId].name);
         dispatch({
             type: 'ITEM_BUY',
             data: {
-                itemId
+                itemId,
+                itemCost
             },
         })
     }
 
-
-
-    const sumBpmPower = () => {
-        return (gameState.inventory.reduce((acc, itemsSet ) => {
-            console.log(itemsSet.quantity, itemsSet.bpmPower);
-            return acc + (itemsSet.quantity * itemsSet.bpmPower)
-        }, 0))
+    const deleteProgressHandler = () => {
+        dispatch({ type: 'DELETE_PROGRESS' })
     }
 
     useEffect(() => {
-        // console.log('beats', gameState.currentBeats);
-        // console.log('level: ', currentLevel);
-        // console.log('next level: ', nextLevel);
+        console.log("Wykonam sie raz! \n", "Tu sprawdzimy czy jest cos w localStorage");
+        // console.log(!!localStorage.getItem('beatit_progress'));
+
+        if (localStorage.getItem('beatit_progress')) {
+            dispatch({
+                type: 'LOAD_PROGRESS',
+                data: JSON.parse(localStorage.getItem('beatit_progress'))
+            })
+        }
+
+    }, [])
+    
+
+    useEffect(() => {
+        console.log('Odświeżamy gameState');
 
         if (gameState.currentBeats >= nextLevel) {
             setCurrentLevel((prev) => prev + 1)
             setNextLevel(Math.pow(2, currentLevel) * 10)
         }
 
-
-        sumBpmPower()
-        // console.log(sumBpmPower());
-
-
-
     },
-        [gameState.currentBeats, currentLevel, nextLevel, gameState.inventory])
+        [gameState, currentLevel, nextLevel])
+
 
 
 
 
     useEffect(() => {
-        console.log("Wykonam sie raz! \n", "Tu sprawdzimy czy jest cos w localStorage");
+        dispatch({
+            type: 'UPDATE_BPMPOWER',
+            shopData: shopItems
+        })
 
-        if (localStorage.getItem('score') > 0) {
-            dispatch({
-                type: 'GET_SCORE_FROM_LS',
-                data: {
-                    score: localStorage.getItem('score')
-                }
-            })
-        }
-    }, [])
+
+        const tick = setInterval(() => {
+            dispatch({ type: 'BEATS_UPDATE', value: (gameState.bpmPower) })
+
+
+        }, GAME_TICK)
+
+
+
+        return (() => {
+            clearInterval(tick)
+        })
+
+    }, [gameState.inventory, gameState.bpmPower])
+
+
+
+
+    
 
 
     return (
         <GameContext.Provider value={
             {
                 onBeatClick: onBeatClickHandler,
-                onBuyItem: buyItemHandler,
+                onItemBuy: buyItemHandler,
+                onDeleteProgress: deleteProgressHandler,
 
                 getCurrentBeats: gameState.currentBeats,
                 getCurrentLevel: currentLevel,
-                getBpmPower: bpmPower,
+                getBpmPower: gameState.bpmPower,
                 getShopItemsData: shopItems,
                 getInventory: gameState.inventory,
 

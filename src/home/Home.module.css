@@ -1,3 +1,48 @@
 .home {
     font-size: 1.5;
+    animation: float 2s infinite ease-in-out 2s;
+
 }
+
+
+.info {
+    text-shadow: 1px 1px 0px plum;
+    letter-spacing: 3px;
+    margin: 3rem 0;
+}
+
+.currentLevel {
+    font-size: 3rem;
+    margin: 2rem;
+    margin-bottom: 0;
+}
+
+.beats {
+    font-size: 1.5rem;
+    letter-spacing: 10px;
+    margin: 0;
+}
+
+.bpm {
+    font-size: 2rem;
+    margin: 1rem;
+    margin-top: 0;
+}
+
+
+@keyframes float {
+    0%{
+        transform: translateY(0px);
+        /* transform: rotateZ(-2deg); */
+    }
+    40%{
+        transform: translateY(2px);
+        /* transform: rotateZ(2deg); */
+    }
+    100%{
+        transform: translateY(0px);
+        /* transform: rotateZ(-2deg); */
+    }
+}
+
+
