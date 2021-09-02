@@ -35,7 +35,14 @@
     }
 }
 
-
+@keyframes scale {
+    0%{
+        transform: scale(100%);
+    }
+    100%{
+        transform: scale(90%);
+    }
+}
 
 
 .beatItButton:hover {
@@ -46,7 +53,6 @@
 }
 
 .beatItButton:active {
-    background-color: black;
     background-size: 75%;
-
+    animation: pulsate 3s infinite ease-in-out, scale 0.3s ease-out;
 }

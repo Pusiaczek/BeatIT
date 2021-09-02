@@ -2,6 +2,7 @@ const shopItems = [
     {
         id: 0,
         name: "One Tribe drumkit",
+        type: "permanent",
         bpmPower: 1,
         cost: 10,
         imgUrl: '../gfx/shop/item01.png',
@@ -9,6 +10,7 @@ const shopItems = [
     {
         id: 1,
         name: "Tribal Band!",
+        type: "permanent",
         bpmPower: 5,
         cost: 50,
         imgUrl: '../gfx/shop/item02.png',
@@ -16,7 +18,8 @@ const shopItems = [
     {
         id: 2,
         name: "Shaman-Musician",
-        bpmPower: 64,
+        type: "permanent",
+        bpmPower: 16,
         cost: 420,
         imgUrl: '../gfx/shop/item03.png',
     },
@@ -24,7 +27,8 @@ const shopItems = [
     {
         id: 3,
         name: "Dr. Peacock",
-        bpmPower: 1337,
+        type: "permanent",
+        bpmPower: 69,
         cost: 66066,
         imgUrl: '../gfx/shop/item04.png',
     },

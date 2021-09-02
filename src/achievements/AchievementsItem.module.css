@@ -1,0 +1,39 @@
+.achievement {
+    border: 5px pink solid;
+    background-color: plum;
+    width: 80%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    margin: 5% auto;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.undone {
+    background-color: gray;
+}
+
+@media (min-width: 564px) {
+    .achievement{
+        width: 40%;
+        margin: 2% auto;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .achievement{
+        width: 31%;
+    }
+}
+
+
+@media (min-width: 992px) {
+    .achievement{
+        width: 23%;
+    }
+}

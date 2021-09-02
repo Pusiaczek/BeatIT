@@ -4,24 +4,49 @@
     background-color: thistle;
     margin: 1%;
     padding: 0;
+    border-radius: 50%;
 
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    box-shadow: 2px 2px 4px black;
+    text-shadow: 2px 2px 0 violet;
+    transition: transform 0.3s;
+    user-select: none;
 }
 
 .shopItem:hover:not(.unaffordable) {
     cursor: pointer;
-    background-color: hotpink;
+    background-color: plum;
+    box-shadow: none;
+    border: 2px plum solid
 }
 
+
+.shopItem:active:not(.unaffordable) {
+    transform: scale(90%);
+}
+
+.shopItem:active.unaffordable {
+    transform: rotateZ(-30deg);
+}
+
+
+
+
+
 .unaffordable {
-    background-color: gray;
+    background-color:dimgrey;
+    text-shadow: 2px 2px 0 gray;
 }
 
 .unaffordable:hover {
     cursor: not-allowed;
+}
+
+.shopItem p {
+    margin: 2px;
 }
 
 @media (min-width: 460px) {
@@ -37,3 +62,8 @@
     }
 }
 
+@media (min-width: 1000px) {
+    .shopItem {
+        width: 16%;
+    }
+}

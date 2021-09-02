@@ -7,6 +7,7 @@
     font-weight: 700;
     margin: 0;
     background-color:slateblue;
+    user-select: none;
     
 }
 

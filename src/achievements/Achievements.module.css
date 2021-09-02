@@ -1,0 +1,9 @@
+.achievementsList {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    user-select: none;
+    width: 75%;
+    margin: 3rem auto;
+}
+

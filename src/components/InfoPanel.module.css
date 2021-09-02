@@ -1,0 +1,24 @@
+.info {
+    text-shadow: 1px 1px 0px plum;
+    letter-spacing: 3px;
+    margin: 3rem 0;
+    user-select: none;
+}
+
+.currentLevel {
+    font-size: 3rem;
+    margin: 2rem;
+    margin-bottom: 0;
+}
+
+.beats {
+    font-size: 1.5rem;
+    letter-spacing: 10px;
+    margin: 0;
+}
+
+.bpm {
+    font-size: 2rem;
+    margin: 1rem;
+    margin-top: 0;
+}

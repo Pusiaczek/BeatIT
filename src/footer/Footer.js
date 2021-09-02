@@ -1,5 +1,5 @@
 
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import GameContext from '../store/game-context';
 import styles from './Footer.module.css';
 

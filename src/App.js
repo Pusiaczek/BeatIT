@@ -5,7 +5,7 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import GameContext from './store/game-context';
 
 import Home from './home/Home';
@@ -15,21 +15,19 @@ import Navbar from './navbar/Navbar';
 import styles from './App.module.css';
 import Achievements from './achievements/Achievements';
 import Footer from './footer/Footer';
+import AchievementCompleteAlert from './components/AchievementCompleteAlert';
 
 
 
 function App() {
   const ctx = useContext(GameContext)
 
-
-
-
-
   return (
     <div className={styles.App}>
       <Router>
+        <AchievementCompleteAlert />
+        
         <Navbar />
-
         <Switch>
           <Route exact path='/'>
             <Redirect to='/home' />
@@ -44,12 +42,11 @@ function App() {
           <Route path='/shop'>
             <Shop
               data={ctx.getShopItemsData}
-              beats={ctx.getCurrentBeats}
               inventory={ctx.getInventory} />
           </Route>
 
           <Route path='/achievements'>
-            <Achievements />
+            <Achievements data={ctx.getAchievements} />
           </Route>
         </Switch>
         <Footer />
