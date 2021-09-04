@@ -7,9 +7,10 @@ function AchievementsItem(props) {
 
     return (
         <div className={props.isDone ? `${styles.achievement}` : `${styles.achievement} ${styles.undone}`}>
-            <p>{props.name}</p>
-            <p>{props.desc}</p>
-            <p>{props.isDone.toString()}</p>
+            <div className={styles.labelContainer}>
+                <p className={styles.achiName}>{props.name}</p>
+                <p className={styles.achiDescription}>{props.desc}</p>
+            </div>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import gameReducer from "./gameReducer";
 
 import shopItems from "../pseudoBackend/shopItems";
 import achievementsList from "../pseudoBackend/achievementsList";
+import sendUpdatedBeats from "../requests/sendUpdatedBeats";
 
 const GameContext = React.createContext({
     onBeatClick: () => { },
@@ -18,6 +19,7 @@ const GameContext = React.createContext({
     getTotalClicks: 0,
     getAchievements: [],
     getShowAchiPopup: false,
+    getClickPower: 0,
 
 });
 
@@ -31,13 +33,16 @@ export function GameContextProvider(props) {
         clickPower: 1,
         bpmPower: 0,
         inventory: new Array(shopItems.length).fill({
-            quantity: 0
+            quantity: 0,
+            type: ''
         }),
         achievements: achievementsList
     })
 
     const [currentLevel, setCurrentLevel] = useState(1)
-    const [nextLevel, setNextLevel] = useState(10)
+    // const [nextLevel, setNextLevel] = useState(10)
+    
+
     const [showAchiPopup, setShowAchiPopup] = useState(false)
 
 
@@ -58,10 +63,9 @@ export function GameContextProvider(props) {
         })
     }
 
+    const togglePopupHandler = () => {
 
-
-
-
+    }
 
 
     useEffect(() => {
@@ -75,37 +79,51 @@ export function GameContextProvider(props) {
             })
         }
 
-    }, [])
-
-
-    useEffect(() => {
-        if (gameState.currentBeats >= nextLevel) {
-            setCurrentLevel((prev) => prev + 1)
-            setNextLevel(Math.pow(2, currentLevel) * 10)
-        }
-
-        dispatch({
-            type: 'UPDATE_BPMPOWER',
-            shopData: shopItems
-        })
-
-        dispatch({
-            type: 'CHECK_ACHI_COMPLETION',
-        })
-
-
+        console.log("start interwalu");
         const tick = setInterval(() => {
+            // sendUpdatedBeats( gameState.currentBeats, dispatch({ type: 'BEATS_UPDATE', }))
+            // prawdopodobnie trzebaby uzyc useCallback odnosnie sendUpdatedBeats
+
             dispatch({ type: 'BEATS_UPDATE', })
 
         }, GAME_TICK)
-
 
 
         return (() => {
             clearInterval(tick)
         })
 
-    }, [gameState.inventory, gameState.bpmPower, gameState.currentBeats, currentLevel, nextLevel])
+
+    }, [])
+
+
+    useEffect(() => {
+        let levels = [0];
+
+        while (gameState.currentBeats + 1  > levels[levels.length - 1]) {
+            levels.push(Math.pow(2, levels.length - 1) * 10);
+        }
+        setCurrentLevel(levels.length - 1)
+
+        // if (gameState.currentBeats >= nextLevel) {
+        //     setCurrentLevel((prev) => prev + 1)
+        //     setNextLevel(Math.pow(2, currentLevel) * 10)
+        // }
+
+        dispatch({
+            type: 'UPDATE_POWERS',
+            shopData: shopItems
+        })
+
+        dispatch({
+            type: 'CHECK_ACHI_COMPLETION',
+            togglePopup: togglePopupHandler
+        })
+
+
+
+
+    }, [gameState.inventory, gameState.bpmPower, gameState.currentBeats, currentLevel])
 
 
 
@@ -125,6 +143,7 @@ export function GameContextProvider(props) {
                 getTotalClicks: gameState.totalClicks,
                 getAchievements: gameState.achievements,
                 getShowAchiPopup: showAchiPopup,
+                getClickPower: gameState.clickPower,
 
             }
         }>

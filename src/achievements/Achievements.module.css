@@ -3,7 +3,9 @@
     flex-wrap: wrap;
     flex-direction: row;
     user-select: none;
-    width: 75%;
+    width: 85%;
     margin: 3rem auto;
+
+    /* overflow: hidden; */
 }
 

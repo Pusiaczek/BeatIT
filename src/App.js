@@ -18,14 +18,13 @@ import Footer from './footer/Footer';
 import AchievementCompleteAlert from './components/AchievementCompleteAlert';
 
 
-
 function App() {
   const ctx = useContext(GameContext)
 
   return (
     <div className={styles.App}>
       <Router>
-        <AchievementCompleteAlert />
+        {/* <AchievementCompleteAlert /> */}
         
         <Navbar />
         <Switch>

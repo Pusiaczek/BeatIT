@@ -14,8 +14,8 @@ const checkAchiCompletion = (achievements, totalClicks, bpmPower) => {
                 case 'clicks':
                     if (totalClicks >= achi.conditionValue) {
                         // console.log('zaliczamy kliki');
-                        // alert("Zaliczamy achi: ", achi.name)
-                        
+                        alert(`Zaliczamy achi: ${achi.name}`)
+
                         console.log(achi.id);
                         return {
                             ...achi,
@@ -27,7 +27,7 @@ const checkAchiCompletion = (achievements, totalClicks, bpmPower) => {
                 case 'bpm':
                     if (bpmPower >= achi.conditionValue) {
                         // console.log('zaliczamy bpmy');
-                        // alert("Zaliczamy achi: ", achi.name)
+                        alert(`Zaliczamy achi: ${achi.name}`)
                         console.log(achi.id);
 
                         return {
@@ -100,12 +100,28 @@ function gameReducer(state, action) {
             saveProgressInLocalStorage(itemBuyNewState)
             return itemBuyNewState
 
-        case 'UPDATE_BPMPOWER':
-            const newBpmPower = (state.inventory.reduce((acc, inventory, index) => {
-                return acc + inventory.quantity * action.shopData[index].bpmPower
+
+
+        case 'UPDATE_POWERS':
+            const newBpmPower = (state.inventory.reduce((acc, item, index) => {
+                if (action.shopData[index].type === "bpmBoost") {
+                    return acc + item.quantity * action.shopData[index].boostValue
+                }
+                return acc
             }, 0))
 
-            const updateBpmNewState = { ...state, bpmPower: newBpmPower }
+            const newClickPower = (state.inventory.reduce((acc, item, index) => {
+                if (action.shopData[index].type === "clickBoost") {
+                    return acc + item.quantity * action.shopData[index].boostValue
+                }
+                return acc
+            }, 0))
+
+            const updateBpmNewState = {
+                ...state,
+                bpmPower: newBpmPower,
+                clickPower: newClickPower + 1
+            }
 
             saveProgressInLocalStorage(updateBpmNewState)
 

@@ -22,7 +22,7 @@ function ShopItem(props) {
 
             <p>{`'${props.data.name}'`}</p>
             <p>cost: {Math.round(realCost)}</p>
-            <p>Additional BPM: {props.data.bpmPower}</p>
+            <p>Additional BPM: {props.data.boostValue}</p>
             <p>Owned: {props.quantity}</p>
             {/* <p>{props.data.imgUrl}</p> */}
         </div>

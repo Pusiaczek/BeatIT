@@ -11,7 +11,8 @@ function InfoPanel(props) {
         <div className={styles.info}>
             <p className={styles.currentLevel}>Level: {ctx.getCurrentLevel}</p>
             <p className={styles.beats}>Beats: {Math.round(ctx.getCurrentBeats)}</p>
-            <p className={styles.bpm}>BPM: {ctx.getBpmPower}</p>
+            <p className={styles.clikPowah}></p>
+            <p className={styles.powah}>BPM: {ctx.getBpmPower} | Click Powah: {ctx.getClickPower}</p>
         </div>
     )
 }

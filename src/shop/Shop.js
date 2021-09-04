@@ -1,6 +1,7 @@
 import ShopItem from './ShopItem';
 import styles from './Shop.module.css';
 import InfoPanel from '../components/InfoPanel';
+import React from 'react';
 
 function Shop(props) {
     const shopContent = props.data.map((item, index) =>
@@ -8,13 +9,15 @@ function Shop(props) {
     )
 
     return (
-        <div>
+        <React.Fragment>
             <InfoPanel />
 
             <div className={styles.shop}>
                 {props.data && shopContent}
             </div>
-        </div>
+
+        </React.Fragment>
+
 
     )
 }
