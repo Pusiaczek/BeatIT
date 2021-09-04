@@ -6,17 +6,16 @@ const saveProgressInLocalStorage = (gameProgress) => {
     localStorage.setItem('beatit_progress', JSON.stringify(gameProgress));
 }
 
-const checkAchiCompletion = (achievements, totalClicks, bpmPower) => {
+const checkAchiCompletion = (achievements, totalClicks, bpmPower, triggerPopup) => {
     const newAchievements = achievements.map((achi, index) => {
         if (!achi.isDone) {
 
             switch (achi.condition) {
                 case 'clicks':
                     if (totalClicks >= achi.conditionValue) {
-                        // console.log('zaliczamy kliki');
-                        alert(`Zaliczamy achi: ${achi.name}`)
+                        // console.log(achi);
+                        triggerPopup(achi.description);
 
-                        console.log(achi.id);
                         return {
                             ...achi,
                             isDone: true
@@ -27,8 +26,7 @@ const checkAchiCompletion = (achievements, totalClicks, bpmPower) => {
                 case 'bpm':
                     if (bpmPower >= achi.conditionValue) {
                         // console.log('zaliczamy bpmy');
-                        alert(`Zaliczamy achi: ${achi.name}`)
-                        console.log(achi.id);
+                        triggerPopup(achi.description);
 
                         return {
                             ...achi,
@@ -129,7 +127,7 @@ function gameReducer(state, action) {
 
 
         case 'CHECK_ACHI_COMPLETION':
-            const newAchievementsArray = checkAchiCompletion(state.achievements, state.totalClicks, state.bpmPower)
+            const newAchievementsArray = checkAchiCompletion(state.achievements, state.totalClicks, state.bpmPower, action.triggerPopup)
 
             return {
                 ...state,

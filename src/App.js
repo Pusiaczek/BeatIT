@@ -5,26 +5,29 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import { useContext } from 'react';
+import { useContext,  } from 'react';
 import GameContext from './store/game-context';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import Home from './home/Home';
 import Shop from './shop/Shop';
-
 import Navbar from './navbar/Navbar';
 import styles from './App.module.css';
 import Achievements from './achievements/Achievements';
 import Footer from './footer/Footer';
-import AchievementCompleteAlert from './components/AchievementCompleteAlert';
 
 
 function App() {
   const ctx = useContext(GameContext)
 
+  
+
   return (
     <div className={styles.App}>
       <Router>
-        {/* <AchievementCompleteAlert /> */}
+        <ToastContainer />
         
         <Navbar />
         <Switch>

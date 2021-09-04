@@ -1,5 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
 import gameReducer from "./gameReducer";
+import { toast } from 'react-toastify';
+
 
 import shopItems from "../pseudoBackend/shopItems";
 import achievementsList from "../pseudoBackend/achievementsList";
@@ -9,7 +11,6 @@ const GameContext = React.createContext({
     onBeatClick: () => { },
     onItemBuy: () => { },
     onDeleteProgress: () => { },
-    onToggleAchiPopup: () => { },
 
     getCurrentBeats: 0,
     getCurrentLevel: 0,
@@ -18,10 +19,12 @@ const GameContext = React.createContext({
     getInventory: [],
     getTotalClicks: 0,
     getAchievements: [],
-    getShowAchiPopup: false,
     getClickPower: 0,
 
 });
+
+
+
 
 
 export function GameContextProvider(props) {
@@ -41,9 +44,6 @@ export function GameContextProvider(props) {
 
     const [currentLevel, setCurrentLevel] = useState(1)
     // const [nextLevel, setNextLevel] = useState(10)
-    
-
-    const [showAchiPopup, setShowAchiPopup] = useState(false)
 
 
     const onBeatClickHandler = () => dispatch({ type: 'MOUSE_CLICK' })
@@ -63,10 +63,13 @@ export function GameContextProvider(props) {
         })
     }
 
-    const togglePopupHandler = () => {
-
+    const triggerPopupHandler = (toastText) => {
+        toast(toastText, {
+            position: 'top-center',
+            autoClose: 2000,
+            draggable: true
+        })
     }
-
 
     useEffect(() => {
         console.log("Wykonam sie raz! \n", "Tu sprawdzimy czy jest cos w localStorage");
@@ -100,7 +103,7 @@ export function GameContextProvider(props) {
     useEffect(() => {
         let levels = [0];
 
-        while (gameState.currentBeats + 1  > levels[levels.length - 1]) {
+        while (gameState.currentBeats + 1 > levels[levels.length - 1]) {
             levels.push(Math.pow(2, levels.length - 1) * 10);
         }
         setCurrentLevel(levels.length - 1)
@@ -117,7 +120,7 @@ export function GameContextProvider(props) {
 
         dispatch({
             type: 'CHECK_ACHI_COMPLETION',
-            togglePopup: togglePopupHandler
+            triggerPopup: triggerPopupHandler
         })
 
 
@@ -133,7 +136,6 @@ export function GameContextProvider(props) {
                 onBeatClick: onBeatClickHandler,
                 onItemBuy: buyItemHandler,
                 onDeleteProgress: deleteProgressHandler,
-                // onToggleAchiPopup: toggleAchiPopup,
 
                 getCurrentBeats: gameState.currentBeats,
                 getCurrentLevel: currentLevel,
@@ -142,7 +144,6 @@ export function GameContextProvider(props) {
                 getInventory: gameState.inventory,
                 getTotalClicks: gameState.totalClicks,
                 getAchievements: gameState.achievements,
-                getShowAchiPopup: showAchiPopup,
                 getClickPower: gameState.clickPower,
 
             }
